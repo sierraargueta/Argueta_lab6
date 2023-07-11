@@ -8,6 +8,27 @@ def password_encoder(pass_string):
         encoded_password += str(num)
     return encoded_password
 
+# decode function added by Ernesto Lopez
+def decode(encoded):
+    decoded_digits = []
+    for digit in encoded:
+        # Convert digit from string to integer
+        digit_int = int(digit)
+        # Shift digit down by 3, wrapping around to 0 after 9
+        decoded_digit_int = 0
+        if digit_int > 2:
+            decoded_digit_int = digit_int - 3
+        elif digit_int == 2:
+            decoded_digit_int = 9
+        elif digit_int == 1:
+            decoded_digit_int = 8
+        elif digit_int == 0:
+            decoded_digit_int = 7
+        # Convert encoded digit back to string and append to list
+        decoded_digits.append(str(decoded_digit_int))
+    # Convert list of encoded digits to string
+    decoded_password = ''.join(decoded_digits)
+    return decoded_password
 
 def main():
     while True:
@@ -24,7 +45,7 @@ def main():
             print('Your password has been encoded and stored!')
             print('')
         if user_option == 2:
-            pass
+            print(f'The encoded password is {password_encoder(user_pass)}, and the original password is {decode(password_encoder(user_pass))}.')
         if user_option == 3:
             exit()
 
